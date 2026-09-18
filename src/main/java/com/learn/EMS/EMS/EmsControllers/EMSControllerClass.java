@@ -7,6 +7,8 @@ import com.learn.EMS.EMS.Services.ExpenseService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Stack;
 
 @RestController
 public class EMSControllerClass {
@@ -43,5 +45,10 @@ public EMSControllerClass(ExpenseService service){
     @PutMapping("/Expense/{id}")
     public Expense updateById(@RequestBody Expense expenseDTO,@PathVariable Long id){
        return service.update(expenseDTO,id);
+    }
+    //S01 ADDING PATCH MAPPING TO THE CODE
+    @PatchMapping("/Expense/{id}")
+    public Expense updatePartialById(@RequestBody Map<String,Object> entity,@PathVariable Long id){
+    return service.updatePatch(entity,id);
     }
 }

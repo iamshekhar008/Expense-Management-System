@@ -3,11 +3,15 @@ package com.learn.EMS.EMS.Services;
 import com.learn.EMS.EMS.EmsDTO.Expense;
 import com.learn.EMS.EMS.Entity.ExpenseEntity;
 import com.learn.EMS.EMS.Repository.ExpenceRepository;
+import org.apache.el.util.ReflectionUtil;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.util.ReflectionUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -49,5 +53,20 @@ public class ExpenseService {
         ExpenseEntity savedEntity=repository.save(entity);
         return modelMapper.map(savedEntity,Expense.class);
 
+    }
+    public boolean existByIds(Long id){
+        return repository.existsById(id);
+    }
+    public Expense updatePatch(Map<String, Object> entity, Long id) {
+        if(!existByIds(id))
+            return null;
+        ExpenseEntity entitytoUpdate = repository.findById(id).get();
+        entity.forEach((field,value)-> {
+            Field fieldtoUpdate= ReflectionUtils.getRequiredField(ExpenseEntity.class, field);
+            fieldtoUpdate.setAccessible(true);
+            ReflectionUtils.setField(fieldtoUpdate,entitytoUpdate,value);
+        });
+
+        return modelMapper.map(repository.save(entitytoUpdate),Expense.class);
     }
 }
