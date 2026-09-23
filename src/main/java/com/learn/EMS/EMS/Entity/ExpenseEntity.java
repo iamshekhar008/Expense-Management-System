@@ -11,49 +11,25 @@ public class ExpenseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    private String  type;
-    private String price;
+    private String type;
+    private Double cost;   // renamed from "price", type changed to Double
 
-    public ExpenseEntity(){
+    public ExpenseEntity(){}
 
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public ExpenseEntity(Long id, String name, String type, String price) {
+    public ExpenseEntity(Long id, String name, String type, Double cost) {
         this.id = id;
         this.name = name;
         this.type = type;
-        this.price = price;
+        this.cost = cost;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public void setName(String name) { this.name = name; }
+    public void setType(String type) { this.type = type; }
+    public void setId(Long id) { this.id = id; }
+    public void setCost(Double cost) { this.cost = cost; }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public String getPrice() {
-        return price;
-    }
+    public Long getId() { return id; }
+    public String getName() { return name; }
+    public String getType() { return type; }
+    public Double getCost() { return cost; }
 }
