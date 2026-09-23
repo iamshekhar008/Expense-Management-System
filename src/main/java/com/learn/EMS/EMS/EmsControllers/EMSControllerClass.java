@@ -4,6 +4,7 @@ import com.learn.EMS.EMS.EmsDTO.Expense;
 import com.learn.EMS.EMS.Entity.ExpenseEntity;
 import com.learn.EMS.EMS.Repository.ExpenceRepository;
 import com.learn.EMS.EMS.Services.ExpenseService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -39,7 +40,7 @@ public EMSControllerClass(ExpenseService service){
    }
 
     @PostMapping("/Expenses")
-    public ResponseEntity<Expense> addExpenses(@RequestBody Expense expenseDTO){
+    public ResponseEntity<Expense> addExpenses(@Valid @RequestBody Expense expenseDTO){
          // return expences.save(entity);
         Expense saved=service.addExpense(expenseDTO);
         URI location= ServletUriComponentsBuilder.fromCurrentContextPath()
